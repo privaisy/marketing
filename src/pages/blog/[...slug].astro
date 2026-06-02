@@ -1,0 +1,33 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const formatDate = (date: Date) => date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+
+export async function getStaticPaths() {
+  const blogEntries = await getCollection('blog');
+  return blogEntries.map((entry) => ({
+    params: { slug: entry.slug },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await entry.render();
+---
+<BaseLayout title={`${entry.data.title} — Privaisy`}>
+  <article class="bg-white px-4 pb-16 pt-32">
+    <div class="mx-auto flex max-w-page flex-col gap-8">
+      <div class="max-w-[720px]">
+        <a href="/blog" class="text-link text-pine underline">&larr; Back to blog</a>
+      </div>
+      <div class="max-w-[720px]">
+        <span class="text-small text-pine/50">{formatDate(entry.data.date)}</span>
+        <h1 class="text-h1 mt-4 text-pine">{entry.data.title}</h1>
+      </div>
+      <div class="max-w-[720px] prose prose-pine">
+        <Content />
+      </div>
+    </div>
+  </article>
+</BaseLayout>

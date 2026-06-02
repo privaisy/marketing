@@ -1,0 +1,41 @@
+---
+export interface Props {
+  aspect?: string;
+  variant?: 'person' | 'scene' | 'article';
+  label?: string;
+  class?: string;
+}
+
+const { aspect = 'auto', variant = 'scene', label, class: className = '' } = Astro.props;
+
+const aspectClass = aspect !== 'auto' ? `aspect-[${aspect}]` : '';
+---
+
+<div class={`relative w-full overflow-hidden rounded-lg bg-[#d4dcd6] ${aspectClass} ${className}`}>
+  <div class="pointer-events-none absolute inset-0" style="background-image: radial-gradient(circle, #bcc8be 1px, transparent 1px); background-size: 20px 20px;"></div>
+  <div class="absolute inset-0 flex flex-col items-center justify-center gap-2">
+    {variant === 'person' && (
+      <svg class="h-12 w-12 text-[#bcc8be]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
+        <circle cx="12" cy="8" r="4.5"/>
+        <path d="M3 21c0-4 4-7.5 9-7.5s9 3.5 9 7.5"/>
+      </svg>
+    )}
+    {variant === 'scene' && (
+      <svg class="h-12 w-12 text-[#bcc8be]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
+        <rect x="2" y="3" width="20" height="16" rx="2"/>
+        <circle cx="9" cy="10" r="2.5"/>
+        <path d="M22 14l-5-4-6 6-4-3-5 5"/>
+      </svg>
+    )}
+    {variant === 'article' && (
+      <svg class="h-12 w-12 text-[#bcc8be]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
+        <rect x="3" y="3" width="18" height="18" rx="2"/>
+        <path d="M9 8h6M9 12h6M9 16h4"/>
+      </svg>
+    )}
+    {label && <span class="text-small text-[#a4b2a6]">{label}</span>}
+  </div>
+  <div class="relative z-10 flex h-full w-full flex-col">
+    <slot />
+  </div>
+</div>

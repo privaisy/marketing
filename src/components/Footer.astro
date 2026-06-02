@@ -1,0 +1,103 @@
+---
+---
+
+<footer class="bg-ink px-8 pb-16 pt-28">
+  <div class="mx-auto flex max-w-page flex-col gap-28">
+    <div class="flex flex-col gap-16 md:flex-row md:gap-[72px]">
+      <div class="flex w-full max-w-[660px] flex-col gap-12">
+        <h3 class="text-h3 text-white max-w-[566px]">Focus on growth. We'll handle the rest.</h3>
+        <div class="flex flex-col gap-6">
+          <span class="text-label text-white">newsletter</span>
+            <form id="newsletter-form" class="flex flex-col gap-4">
+            <input type="hidden" name="access_key" value="fdb76f05-69fb-41dd-abbf-e217475f8b70" />
+            <input type="hidden" name="subject" value="New newsletter subscription from privaisy.com" />
+            <input type="checkbox" name="botcheck" class="hidden" style="display:none" tabindex="-1" autocomplete="off" />
+            <div class="flex flex-col gap-3 md:flex-row md:gap-3">
+              <input type="email" name="email" required placeholder="Email address" class="w-full rounded-lg bg-white/10 px-4 py-[17px] text-link text-white/50 placeholder:text-white/50 md:w-[280px]" />
+              <button type="submit" class="w-full rounded-pill border border-pine/10 bg-white px-6 py-[17px] text-link text-pine md:w-[114px]">Subscribe</button>
+            </div>
+            <div id="newsletter-msg" class="text-small"></div>
+            <span class="text-small text-white/50">Stay in the loop. Strategy, systems & updates.</span>
+          </form>
+        </div>
+      </div>
+      <div class="flex w-full max-w-[660px] gap-6">
+        <div class="flex w-full max-w-[204px] flex-col gap-6">
+          <span class="text-label text-white">Main Pages</span>
+          <div class="flex flex-col gap-3">
+            <a href="#hero" class="text-link text-white no-underline">Home</a>
+            <a href="#features" class="text-link text-white no-underline">Features</a>
+            <a href="#trust" class="text-link text-white no-underline">Trust</a>
+            <a href="/blog" class="text-link text-white no-underline">Blog</a>
+          </div>
+        </div>
+        <div class="flex w-full max-w-[204px] flex-col gap-6">
+          <span class="text-label text-white">Other pages</span>
+          <div class="flex flex-col gap-3">
+            <a href="#cta" class="text-link text-white no-underline">Pricing</a>
+            <a href="/contact" class="text-link text-white no-underline">Contact</a>
+          </div>
+        </div>
+        <div class="flex w-full max-w-[204px] flex-col gap-6">
+          <span class="text-label text-white">Social links</span>
+          <div class="flex flex-col gap-3">
+            <a href="#" class="text-link text-white no-underline">LinkedIn</a>
+            <a href="#" class="text-link text-white no-underline">X (Twitter)</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="flex flex-col gap-6">
+      <div class="flex items-center gap-1">
+        <img src="/privaisy-white.svg" alt="Privaisy" class="h-6 w-auto" />
+      </div>
+      <hr class="border-white/10" />
+      <div class="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+        <div class="flex flex-wrap items-center gap-1">
+          <span class="text-small text-white/50">&copy; {new Date().getFullYear()} Privaisy. All rights reserved.</span>
+          <a href="/terms" class="text-small text-white/50 no-underline">Terms and Conditions</a>
+          <a href="/privacy" class="text-small text-white/50 no-underline">Privacy Policy</a>
+        </div>
+        <div class="flex items-center gap-6">
+          <a href="/style-guide" class="text-small text-white no-underline">Style Guide</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const form = document.getElementById('newsletter-form');
+  const msg = document.getElementById('newsletter-msg');
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    msg.className = 'text-small';
+
+    const data = new FormData(form);
+    const json = {};
+    data.forEach((value, key) => { json[key] = value; });
+
+    try {
+      const res = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify(json),
+      });
+
+      const result = await res.json();
+
+      if (result.success) {
+        msg.className = 'text-small text-lime';
+        msg.textContent = 'Thanks for subscribing!';
+        form.querySelector('input[name="email"]').value = '';
+      } else {
+        msg.className = 'text-small text-red-400';
+        msg.textContent = result.message || 'Something went wrong.';
+      }
+    } catch {
+      msg.className = 'text-small text-red-400';
+      msg.textContent = 'Connection error. Please try again.';
+    }
+  });
+</script>

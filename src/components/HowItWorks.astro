@@ -1,0 +1,193 @@
+---
+const steps = [
+  {
+    number: 1,
+    title: 'Engagement Initiation',
+    subtitle: 'Get to know each other',
+    details: [
+      'Your role: give us some details about your business and expected use of AI. Detail how you expect your team to use AI.',
+      'Privaisy\'s role: learn about your organization to understand your business\'s needs which leads to a recommended infrastructure based on your operations.',
+      'Once we\'re ready - sign the contract, that simple.'
+    ],
+  },
+  {
+    number: 2,
+    title: 'User Onboarding',
+    subtitle: 'Prepare your team',
+    details: [
+      'Your role: provide a list of employees you want to use the Privaisy deployed AI. All we need are names and emails. The whole organization? A single department? Your R&D team? You choose.',
+      'Privaisy\'s role: our team will import your employees into the Privaisy authentication platform. Your employees will finish their access from their email inbox. You can designate a user to add/remove users later.',
+    ],
+  },
+  {
+    number: 3,
+    title: 'Infrastructure Launch',
+    subtitle: 'Initiating launch sequence...',
+    details: [
+      'Your role: prepare your team for their favorite new tool; Privaisy will provide the training documentation.',
+      'Privaisy\'s role: our team executes our runbook to build your private AI infrastructure and ready it for use.',
+    ],
+  },
+  {
+    number: 4,
+    title: 'Ready for Use',
+    subtitle: 'All systems go 🚀',
+    details: [
+      'Your role: your team logs in to the Privaisy AI Portal and begins using it to increase productivity for your business.',
+      'Privaisy\'s role: we keep the lights on. Our team monitors, upgrades, and applies security patches to your infrastructure so you can do what you do best - operate your business.',
+    ],
+  },
+];
+---
+<section
+  id="how-it-works"
+  class="relative overflow-hidden bg-lime-50 px-4 py-24"
+>
+  <div
+    class="pointer-events-none absolute -top-1/4 -right-1/4 h-[600px] w-[600px] rounded-full opacity-40"
+    style="background: radial-gradient(circle, rgba(136, 229, 76, 0.2) 0%, transparent 70%);"
+  ></div>
+  <div
+    class="pointer-events-none absolute -bottom-1/4 -left-1/4 h-[500px] w-[500px] rounded-full opacity-30"
+    style="background: radial-gradient(circle, rgba(17, 50, 36, 0.1) 0%, transparent 70%);"
+  ></div>
+
+  <div class="relative z-10 mx-auto max-w-page">
+    <div
+      class="mx-auto mb-16 flex max-w-[700px] flex-col items-center gap-4 text-center"
+    >
+      <h2 class="text-h2 text-pine">From contract to go-live in hours</h2>
+      <p class="text-sub text-pine/60">
+        No lengthy deployments. No complex migrations. We measure implementation time in hours, not days.
+      </p>
+    </div>
+
+    <div class="mx-auto flex max-w-[1000px] flex-col gap-12 md:flex-row md:items-start">
+      <div class="relative w-full shrink-0 md:w-[280px]">
+        <div
+          class="absolute left-6 top-3 hidden h-[calc(100%-24px)] w-px bg-pine/10 md:block"
+        ></div>
+        <div class="flex flex-col gap-4 md:gap-0">
+          {steps.map((step) => (
+            <button
+              class="step-dot relative z-10 flex cursor-pointer items-center gap-4 py-4 text-left transition-all duration-300"
+              data-step={step.number}
+              data-active={step.number === 1}
+            >
+              <div
+                class="dot-circle flex h-12 w-12 shrink-0 items-center justify-center rounded-full border-2 transition-all duration-300"
+              >
+                <span class="text-h6">{step.number}</span>
+              </div>
+              <span
+                class="dot-title text-body-medium leading-snug transition-all duration-300"
+              >
+                {step.title}
+              </span>
+            </button>
+          ))}
+        </div>
+      </div>
+
+      <div class="relative min-h-[260px] flex-1 md:min-h-[300px]">
+        {steps.map((step) => (
+          <div
+            class="step-panel absolute inset-0 transition-all duration-500 ease-in-out"
+            data-step={step.number}
+            data-active={step.number === 1}
+          >
+            <div
+              class="flex flex-col gap-6 rounded-2xl border border-pine/10 bg-white p-8 md:p-12"
+            >
+              <h3 class="text-h4 text-pine">{step.title}</h3>
+              <p class="text-body italic text-pine/60 -mt-2">{step.subtitle}</p>
+              <ul class="flex flex-col gap-4">
+                {step.details.map((detail) => (
+                  <li class="flex items-start gap-3 text-body text-pine/80">
+                    <span
+                      class="mt-[7px] h-1.5 w-1.5 shrink-0 rounded-full bg-lime"
+                    ></span>
+                    {detail}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .step-panel {
+    opacity: 0;
+    transform: translateY(10px);
+    pointer-events: none;
+  }
+  .step-panel[data-active="true"] {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+
+  .step-dot[data-active="true"] .dot-circle {
+    background: #88e54c;
+    border-color: #88e54c;
+    color: #113224;
+  }
+  .step-dot:not([data-active="true"]) .dot-circle {
+    background: white;
+    border-color: rgba(17, 50, 36, 0.15);
+    color: rgba(17, 50, 36, 0.4);
+  }
+
+  .step-dot[data-active="true"] .dot-title {
+    color: #113224;
+  }
+  .step-dot:not([data-active="true"]) .dot-title {
+    color: rgba(17, 50, 36, 0.4);
+  }
+</style>
+
+<script>
+  const TOTAL_STEPS = 4;
+  const INTERVAL = 5000;
+  let currentStep = 1;
+  let timer;
+
+  function activateStep(n) {
+    document.querySelectorAll(".step-dot").forEach((el) => {
+      el.dataset.active = String(parseInt(el.dataset.step) === n);
+    });
+    document.querySelectorAll(".step-panel").forEach((el) => {
+      el.dataset.active = String(parseInt(el.dataset.step) === n);
+    });
+    currentStep = n;
+  }
+
+  function advance() {
+    const next = currentStep < TOTAL_STEPS ? currentStep + 1 : 1;
+    activateStep(next);
+  }
+
+  function start() {
+    timer = setInterval(advance, INTERVAL);
+  }
+
+  function stop() {
+    clearInterval(timer);
+    timer = null;
+  }
+
+  document.addEventListener("DOMContentLoaded", () => {
+    start();
+
+    document.querySelectorAll(".step-dot").forEach((el) => {
+      el.addEventListener("click", () => {
+        stop();
+        activateStep(parseInt(el.dataset.step));
+      });
+    });
+  });
+</script>

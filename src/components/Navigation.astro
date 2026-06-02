@@ -1,0 +1,22 @@
+---
+import Hamburger from './icons/Hamburger.astro';
+---
+<header class="fixed top-0 left-0 right-0 z-50 bg-lime-50">
+  <div class="mx-auto flex h-20 max-w-page items-center justify-between px-8 py-7">
+    <a href="/" class="flex items-center gap-1 no-underline">
+      <img src="/privaisy.svg" alt="Privaisy" class="h-14 w-auto" />
+    </a>
+    <nav class="hidden md:flex items-center gap-8">
+      <a href="#features" class="text-link text-pine no-underline transition-colors hover:text-pine/70">Features</a>
+      <a href="#pricing" class="text-link text-pine no-underline transition-colors hover:text-pine/70">Pricing</a>
+      <a href="#trust" class="text-link text-pine no-underline transition-colors hover:text-pine/70">Trust</a>
+      <a href="/blog" class="text-link text-pine no-underline transition-colors hover:text-pine/70">Blog</a>
+      <a href="#faq" class="text-link text-pine no-underline transition-colors hover:text-pine/70">FAQ</a>
+      <a href="/contact" class="text-link text-pine no-underline transition-colors hover:text-pine/70">Contact</a>
+      <a href="/demo" class="inline-flex items-center justify-center rounded-pill bg-lime px-6 py-2 text-link text-pine no-underline transition-colors hover:bg-lime/90">Get a Demo</a>
+    </nav>
+    <button class="md:hidden text-pine" aria-label="Menu">
+      <Hamburger />
+    </button>
+  </div>
+</header>

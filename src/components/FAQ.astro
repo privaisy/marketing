@@ -1,0 +1,99 @@
+---
+import ChevronDown from './icons/ChevronDown.astro';
+import ArrowRight from './icons/ArrowRight.astro';
+
+const faqs = [
+  {
+    question: 'How is this different from my favorite AI tool?',
+    answer: 'Privaisy runs on your own private infrastructure. Your data never leaves your environment — no training on your inputs, no third-party servers, no data leaks. Even the Privaisy team doesn\'t have access to your data. Otherwise it looks and feels much like the AI you might have used in the past. You get the same AI power, managed by experts, with zero exposure.',
+  },
+  {
+    question: 'What is the catch?',
+    answer: 'None. We built Privaisy to solve the problem of data exposure and compliance risk in AI use. We charge for implementation and a monthly fee for the management of your private AI instance. You get your own AI with no per-seat fees or usage caps. Our goal is to make private AI accessible and affordable for businesses of all sizes. The main difference is that the models you use will not be the same as the big AI companies\' models. Privaisy uses open-source models suited to private deployments.',
+  },
+  {
+    question: 'Is this for one person, one team, or my whole company?',
+    answer: 'You choose. Our pricing is per-organization, not per-seat. You can use it yourself or expand company-wide — your rate stays the same.',
+  },
+  {
+    question: 'What types of businesses is this for?',
+    answer: 'Regulated industries - legal, healthcare, financial services - have immediate needs for private AI because of their handling of sensitive data. However, any business that doesn\'t want to risk data exposure can benefit from Privaisy. Don\'t let the big AI companies sell or train on your data. Use Privaisy instead.',
+  },
+  {
+    question: 'Do you offer support after setup?',
+    answer: 'Absolutely. Every plan includes ongoing monitoring, updates, security patches, and support. If you are looking for project-based assistance, we also offer consulting services to help you get the most out of your private AI instance.',
+  },
+];
+---
+
+<style>
+  .faq-answer {
+    display: grid;
+    grid-template-rows: 0fr;
+    opacity: 0;
+    transition: grid-template-rows 0.3s ease, opacity 0.3s ease;
+  }
+  .faq-item.open .faq-answer {
+    grid-template-rows: 1fr;
+    opacity: 1;
+  }
+  .faq-answer > div {
+    overflow: hidden;
+  }
+  .faq-chevron {
+    transition: transform 0.3s ease;
+  }
+  .faq-item.open .faq-chevron {
+    transform: rotate(180deg);
+  }
+</style>
+
+<script>
+  document.querySelectorAll('.faq-item').forEach((item) => {
+    const trigger = item.querySelector('.faq-trigger');
+    if (!trigger) return;
+    trigger.addEventListener('click', () => {
+      const wasOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item.open').forEach((el) => el.classList.remove('open'));
+      if (!wasOpen) item.classList.add('open');
+    });
+  });
+</script>
+
+<section id="faq" class="bg-white px-4 py-24">
+  <div class="mx-auto flex max-w-page flex-col gap-8 md:flex-row">
+    <div class="flex w-full max-w-[648px] flex-col gap-8">
+      <div class="flex flex-col gap-6">
+        <div class="flex items-center gap-2">
+          <div class="h-2 w-2 rounded-full bg-lime"></div>
+          <span class="text-label text-pine">Frequently Asked Questions</span>
+        </div>
+        <h2 class="text-h2 text-pine">We're here to answer your questions.</h2>
+      </div>
+      <div class="flex-1"></div>
+      <div class="flex flex-col items-start gap-6">
+        <p class="font-body text-pine">Do you still have questions about Privaisy?</p>
+        <button class="inline-flex items-center gap-2 rounded-pill border border-pine/10 bg-white px-6 py-2 text-link text-pine">
+          Get in touch
+          <ArrowRight class="h-5 w-5" />
+        </button>
+      </div>
+    </div>
+    <div class="flex w-full max-w-[720px] flex-col">
+      {faqs.map((faq, i) => (
+        <div class={`faq-item flex flex-col py-6 ${i < faqs.length - 1 ? 'border-b border-pine/10' : ''} ${i === 0 ? 'open' : ''}`}>
+          <div class="faq-trigger flex cursor-pointer items-center justify-between">
+            <h3 class="text-h5 flex-1 text-pine">{faq.question}</h3>
+            <ChevronDown class="faq-chevron h-5 w-5 shrink-0 text-pine" />
+          </div>
+          <div class="faq-answer">
+            <div>
+              <div class="h-4"></div>
+              <p class="font-body text-pine">{faq.answer}</p>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

@@ -1,0 +1,156 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Button from '../components/Button.astro';
+---
+
+<BaseLayout title="Request a Demo — Privaisy" description="Schedule a demo of Privaisy's private AI infrastructure for your business.">
+  <div class="bg-white px-4 pb-24 pt-32">
+    <div class="mx-auto flex max-w-[720px] flex-col gap-8">
+      <div class="flex flex-col gap-6">
+        <h1 class="text-h1 text-pine">Request a demo</h1>
+        <p class="text-sub text-pine/70">
+          See how private AI infrastructure works for your business. We'll tailor the demo to your industry and team size.
+        </p>
+      </div>
+
+      <div id="form-container" class="flex flex-col gap-8">
+        <form id="demo-form" class="flex flex-col gap-6">
+          <input type="hidden" name="access_key" value="22b9aca1-0f31-4a6d-a12e-a8e96dc97bdd" />
+          <input type="hidden" name="subject" value="New demo request from privaisy.com" />
+          <input type="checkbox" name="botcheck" class="hidden" style="display:none" tabindex="-1" autocomplete="off" />
+
+          <div class="grid gap-6 md:grid-cols-2">
+            <div class="flex flex-col gap-2">
+              <label for="name" class="text-body-medium text-pine">Name <span class="text-pine/40">*</span></label>
+              <input type="text" id="name" name="name" required
+                class="w-full rounded-lg border border-pine/10 bg-lime-50 px-4 py-3 text-body text-pine placeholder:text-pine/30 focus:border-lime focus:outline-none"
+                placeholder="Your name" />
+            </div>
+            <div class="flex flex-col gap-2">
+              <label for="title" class="text-body-medium text-pine">Title <span class="text-pine/40">*</span></label>
+              <input type="text" id="title" name="title" required
+                class="w-full rounded-lg border border-pine/10 bg-lime-50 px-4 py-3 text-body text-pine placeholder:text-pine/30 focus:border-lime focus:outline-none"
+                placeholder="e.g. VP of Operations" />
+            </div>
+          </div>
+
+          <div class="flex flex-col gap-2">
+            <label for="email" class="text-body-medium text-pine">Email <span class="text-pine/40">*</span></label>
+            <input type="email" id="email" name="email" required
+              class="w-full rounded-lg border border-pine/10 bg-lime-50 px-4 py-3 text-body text-pine placeholder:text-pine/30 focus:border-lime focus:outline-none"
+              placeholder="you@company.com" />
+          </div>
+
+          <div class="grid gap-6 md:grid-cols-2">
+            <div class="flex flex-col gap-2">
+              <label for="company" class="text-body-medium text-pine">Company Name <span class="text-pine/40">*</span></label>
+              <input type="text" id="company" name="company" required
+                class="w-full rounded-lg border border-pine/10 bg-lime-50 px-4 py-3 text-body text-pine placeholder:text-pine/30 focus:border-lime focus:outline-none"
+                placeholder="Your company" />
+            </div>
+            <div class="flex flex-col gap-2">
+              <label for="company_size" class="text-body-medium text-pine">Company Size <span class="text-pine/40">*</span></label>
+              <select id="company_size" name="company_size" required
+                class="w-full rounded-lg border border-pine/10 bg-lime-50 px-4 py-3 text-body text-pine focus:border-lime focus:outline-none">
+                <option value="">Select...</option>
+                <option value="1-10">1–10</option>
+                <option value="11-20">11–20</option>
+                <option value="21-50">21–50</option>
+                <option value="51-200">51–200</option>
+                <option value="200+">200+</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="flex flex-col gap-2">
+            <label for="industry" class="text-body-medium text-pine">Industry <span class="text-pine/40">*</span></label>
+            <select id="industry" name="industry" required
+              class="w-full rounded-lg border border-pine/10 bg-lime-50 px-4 py-3 text-body text-pine focus:border-lime focus:outline-none">
+              <option value="">Select...</option>
+              <option value="legal">Legal</option>
+              <option value="healthcare">Healthcare</option>
+              <option value="financial-services">Financial Services</option>
+              <option value="technology">Technology</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+
+          <div class="flex flex-col gap-2">
+            <label for="current_setup" class="text-body-medium text-pine">Current AI setup</label>
+            <input type="text" id="current_setup" name="current_setup"
+              class="w-full rounded-lg border border-pine/10 bg-lime-50 px-4 py-3 text-body text-pine placeholder:text-pine/30 focus:border-lime focus:outline-none"
+              placeholder="e.g. ChatGPT free, no AI use, using Claude team plan" />
+          </div>
+
+          <div class="flex flex-col gap-2">
+            <label for="goals" class="text-body-medium text-pine">What are you hoping to accomplish?</label>
+            <textarea id="goals" name="goals" rows="4"
+              class="w-full rounded-lg border border-pine/10 bg-lime-50 px-4 py-3 text-body text-pine placeholder:text-pine/30 focus:border-lime focus:outline-none resize-y"
+              placeholder="Tell us what your team needs and we'll show you how Privaisy fits..."></textarea>
+          </div>
+
+          <div>
+            <button type="submit"
+              class="inline-flex items-center justify-center rounded-pill bg-lime px-8 py-4 text-link text-pine transition-colors hover:bg-lime/90 w-full sm:w-auto">
+              Request a demo
+            </button>
+          </div>
+
+          <div id="form-error" class="hidden text-body text-red-500"></div>
+        </form>
+
+        <div id="form-success" class="hidden flex-col items-center gap-6 py-12 text-center">
+          <div class="flex h-16 w-16 items-center justify-center rounded-full bg-lime">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#113224" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="20 6 9 17 4 12"></polyline>
+            </svg>
+          </div>
+          <div class="flex flex-col gap-2">
+            <h2 class="text-h3 text-pine">Demo request sent!</h2>
+            <p class="text-body text-pine/70">Thanks for your interest. We'll be in touch within 24 hours to schedule your demo.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</BaseLayout>
+
+<script>
+  const form = document.getElementById('demo-form');
+  const formContainer = document.getElementById('form-container');
+  const formError = document.getElementById('form-error');
+  const formSuccess = document.getElementById('form-success');
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    formError.classList.add('hidden');
+
+    const data = new FormData(form);
+    const json = {};
+    data.forEach((value, key) => { json[key] = value; });
+
+    try {
+      const res = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify(json),
+      });
+
+      const result = await res.json();
+
+      if (result.success) {
+        form.classList.add('hidden');
+        formSuccess.classList.remove('hidden');
+        setTimeout(() => {
+          window.location.href = document.referrer || '/';
+        }, 3000);
+      } else {
+        formError.textContent = result.message || 'Something went wrong. Please try again.';
+        formError.classList.remove('hidden');
+      }
+    } catch {
+      formError.textContent = 'Unable to send your request. Please check your connection and try again.';
+      formError.classList.remove('hidden');
+    }
+  });
+</script>

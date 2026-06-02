@@ -1,0 +1,50 @@
+---
+import Lock from './icons/Lock.astro';
+import Shield from './icons/Shield.astro';
+import Server from './icons/Server.astro';
+
+const features = [
+  {
+    icon: Lock,
+    title: 'Zero data exposure',
+    description: 'Your prompts and data stay on your private infrastructure. No third-party model sees what you or your team are working on. No outside organization can sell your data or use it to train their models.',
+  }, 
+  {
+    icon: Shield,
+    title: 'You own the AI, not us',
+    description: 'Our team will build a private AI implementation for you, meaning you own the infrastructure, the data, and the AI itself — not Privaisy, not the big AI companies.',
+  },
+  {
+    icon: Server,
+    title: 'Transparent pricing',
+    description: 'No per-seat fees, no usage caps, no surprise bills as you grow, and no hikes at the whims of big-AI companies. We will work with you to right-size your implementation to keep your pricing predictable and fair as you grow.',
+  },
+];
+---
+<section id="features" class="bg-white px-4 py-24">
+  <div class="mx-auto flex max-w-page flex-col gap-8">
+    <div class="flex max-w-[802px] flex-col gap-24">
+      <div class="flex flex-col gap-6">
+        <div class="flex items-center gap-2">
+          <div class="h-2 w-2 rounded-full bg-lime"></div>
+          <span class="text-label text-pine">Features</span>
+        </div>
+        <h2 class="text-h2 text-pine max-w-[566px]">Enterprise privacy, SMB simplicity.</h2>
+        <p class="text-sub max-w-[566px] text-pine">No IT staff? No problem. <br /> No setup, no maintenance, no compromise is required from your business. Let Privaisy handle the infrastructure so you can focus on what is important to your business.</p>
+      </div>
+    </div>
+    <div class="flex flex-col gap-6 md:flex-row md:gap-6">
+      {features.map((feature) => (
+        <div class="flex flex-1 flex-row items-start gap-6 border-l border-lime-50 pl-6">
+          <div class="flex flex-col gap-4">
+            <div class="flex h-12 w-12 items-center justify-center rounded-full bg-lime-50">
+              <feature.icon class="text-pine" />
+            </div>
+            <h3 class="text-h5 text-pine">{feature.title}</h3>
+            <p class="text-body text-pine">{feature.description}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

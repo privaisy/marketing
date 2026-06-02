@@ -1,0 +1,135 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Button from '../components/Button.astro';
+---
+
+<BaseLayout title="Contact — Privaisy" description="Get in touch with Privaisy. We'll help you set up private AI infrastructure for your business.">
+  <div class="bg-white px-4 pb-24 pt-32">
+    <div class="mx-auto flex max-w-[720px] flex-col gap-8">
+      <div class="flex flex-col gap-6">
+        <h1 class="text-h1 text-pine">Contact us</h1>
+        <p class="text-sub text-pine/70">
+          Tell us about your business and we'll recommend the right setup for your team.
+        </p>
+      </div>
+
+      <div id="form-container" class="flex flex-col gap-8">
+        <form id="contact-form" class="flex flex-col gap-6">
+          <input type="hidden" name="access_key" value="d94a9071-9c64-4499-8c28-fa664bb13907" />
+          <input type="hidden" name="subject" value="New contact from privaisy.com" />
+          <input type="checkbox" name="botcheck" class="hidden" style="display:none" tabindex="-1" autocomplete="off" />
+
+          <div class="grid gap-6 md:grid-cols-2">
+            <div class="flex flex-col gap-2">
+              <label for="name" class="text-body-medium text-pine">Name <span class="text-pine/40">*</span></label>
+              <input type="text" id="name" name="name" required
+                class="w-full rounded-lg border border-pine/10 bg-lime-50 px-4 py-3 text-body text-pine placeholder:text-pine/30 focus:border-lime focus:outline-none"
+                placeholder="Your name" />
+            </div>
+            <div class="flex flex-col gap-2">
+              <label for="title" class="text-body-medium text-pine">Title</label>
+              <input type="text" id="title" name="title"
+                class="w-full rounded-lg border border-pine/10 bg-lime-50 px-4 py-3 text-body text-pine placeholder:text-pine/30 focus:border-lime focus:outline-none"
+                placeholder="e.g. VP of Operations" />
+            </div>
+          </div>
+
+          <div class="flex flex-col gap-2">
+            <label for="email" class="text-body-medium text-pine">Email <span class="text-pine/40">*</span></label>
+            <input type="email" id="email" name="email" required
+              class="w-full rounded-lg border border-pine/10 bg-lime-50 px-4 py-3 text-body text-pine placeholder:text-pine/30 focus:border-lime focus:outline-none"
+              placeholder="you@company.com" />
+          </div>
+
+          <div class="grid gap-6 md:grid-cols-2">
+            <div class="flex flex-col gap-2">
+              <label for="company" class="text-body-medium text-pine">Company Name</label>
+              <input type="text" id="company" name="company"
+                class="w-full rounded-lg border border-pine/10 bg-lime-50 px-4 py-3 text-body text-pine placeholder:text-pine/30 focus:border-lime focus:outline-none"
+                placeholder="Your company" />
+            </div>
+            <div class="flex flex-col gap-2">
+              <label for="company_size" class="text-body-medium text-pine">Company Size</label>
+              <select id="company_size" name="company_size"
+                class="w-full rounded-lg border border-pine/10 bg-lime-50 px-4 py-3 text-body text-pine focus:border-lime focus:outline-none">
+                <option value="" class="text-pine/30">Select...</option>
+                <option value="1-10">1–10</option>
+                <option value="11-20">11–20</option>
+                <option value="21-50">21–50</option>
+                <option value="50+">50+</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="flex flex-col gap-2">
+            <label for="message" class="text-body-medium text-pine">Message <span class="text-pine/40">*</span></label>
+            <textarea id="message" name="message" required rows="5"
+              class="w-full rounded-lg border border-pine/10 bg-lime-50 px-4 py-3 text-body text-pine placeholder:text-pine/30 focus:border-lime focus:outline-none resize-y"
+              placeholder="Tell us about your business and what you're looking for..."></textarea>
+          </div>
+
+          <div>
+            <button type="submit"
+              class="inline-flex items-center justify-center rounded-pill bg-lime px-8 py-4 text-link text-pine transition-colors hover:bg-lime/90 w-full sm:w-auto">
+              Send message
+            </button>
+          </div>
+
+          <div id="form-error" class="hidden text-body text-red-500"></div>
+        </form>
+
+        <div id="form-success" class="hidden flex-col items-center gap-6 py-12 text-center">
+          <div class="flex h-16 w-16 items-center justify-center rounded-full bg-lime">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#113224" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="20 6 9 17 4 12"></polyline>
+            </svg>
+          </div>
+          <div class="flex flex-col gap-2">
+            <h2 class="text-h3 text-pine">Message sent!</h2>
+            <p class="text-body text-pine/70">Thanks for reaching out. We'll get back to you within 24 hours.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</BaseLayout>
+
+<script>
+  const form = document.getElementById('contact-form');
+  const formContainer = document.getElementById('form-container');
+  const formError = document.getElementById('form-error');
+  const formSuccess = document.getElementById('form-success');
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    formError.classList.add('hidden');
+
+    const data = new FormData(form);
+    const json = {};
+    data.forEach((value, key) => { json[key] = value; });
+
+    try {
+      const res = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify(json),
+      });
+
+      const result = await res.json();
+
+      if (result.success) {
+        form.classList.add('hidden');
+        formSuccess.classList.remove('hidden');
+        setTimeout(() => {
+          window.location.href = document.referrer || '/';
+        }, 3000);
+      } else {
+        formError.textContent = result.message || 'Something went wrong. Please try again.';
+        formError.classList.remove('hidden');
+      }
+    } catch {
+      formError.textContent = 'Unable to send your message. Please check your connection and try again.';
+      formError.classList.remove('hidden');
+    }
+  });
+</script>
