@@ -6,6 +6,7 @@ module.exports = {
       colors: {
         pine: '#113224',
         lime: '#88E54C',
+        'lime-600': '#3D7A1A',
         'lime-50': '#F3F5F4',
         ink: '#181B1A',
       },
