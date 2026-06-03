@@ -7,7 +7,7 @@ const steps = [
     details: [
       'Your role: give us some details about your business and expected use of AI. Detail how you expect your team to use AI.',
       'Privaisy\'s role: learn about your organization to understand your business\'s needs which leads to a recommended infrastructure based on your operations.',
-      'Once we\'re ready - sign the contract, that simple.'
+      'Once we\'re ready - sign the contract, it is that simple.'
     ],
   },
   {
@@ -15,8 +15,8 @@ const steps = [
     title: 'User Onboarding',
     subtitle: 'Prepare your team',
     details: [
-      'Your role: provide a list of employees you want to use the Privaisy deployed AI. All we need are names and emails. The whole organization? A single department? Your R&D team? You choose.',
-      'Privaisy\'s role: our team will import your employees into the Privaisy authentication platform. Your employees will finish their access from their email inbox. You can designate a user to add/remove users later.',
+      'Your role: provide a list of employees you want to use the Privaisy-deployed AI. All we need are names and emails. The whole organization? A single department? Your R&D team? You choose.',
+      'Privaisy\'s role: our team will import your employees into the Privaisy authentication platform. Your employees will activate their access from their email inbox. You can designate a user to add/remove users later.',
     ],
   },
   {
@@ -89,10 +89,10 @@ const steps = [
         </div>
       </div>
 
-      <div class="relative min-h-[260px] flex-1 md:min-h-[300px]">
+      <div class="relative flex-1">
         {steps.map((step) => (
           <div
-            class="step-panel absolute inset-0 transition-all duration-500 ease-in-out"
+            class="step-panel"
             data-step={step.number}
             data-active={step.number === 1}
           >
@@ -121,14 +121,14 @@ const steps = [
 
 <style>
   .step-panel {
+    max-height: 0;
     opacity: 0;
-    transform: translateY(10px);
-    pointer-events: none;
+    overflow: hidden;
+    transition: max-height 0.5s ease, opacity 0.4s ease;
   }
   .step-panel[data-active="true"] {
+    max-height: 2000px;
     opacity: 1;
-    transform: translateY(0);
-    pointer-events: auto;
   }
 
   .step-dot[data-active="true"] .dot-circle {

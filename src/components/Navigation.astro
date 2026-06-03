@@ -1,6 +1,7 @@
 ---
 import Hamburger from './icons/Hamburger.astro';
 ---
+
 <header class="fixed top-0 left-0 right-0 z-50 bg-lime-50">
   <div class="mx-auto flex h-20 max-w-page items-center justify-between px-8 py-7">
     <a href="/" class="flex items-center gap-1 no-underline">
@@ -15,8 +16,64 @@ import Hamburger from './icons/Hamburger.astro';
       <a href="/contact" class="text-link text-pine no-underline transition-colors hover:text-pine/70">Contact</a>
       <a href="/demo" class="inline-flex items-center justify-center rounded-pill bg-lime px-6 py-2 text-link text-pine no-underline transition-colors hover:bg-lime/90">Get a Demo</a>
     </nav>
-    <button class="md:hidden text-pine" aria-label="Menu">
+    <button id="menu-open" class="md:hidden text-pine" aria-label="Open menu">
       <Hamburger />
     </button>
   </div>
+
+  <!-- Mobile menu backdrop -->
+  <div id="menu-backdrop" class="fixed inset-0 z-40 bg-black/50 opacity-0 pointer-events-none transition-opacity duration-300 md:hidden"></div>
+
+  <!-- Mobile menu drawer -->
+  <div id="menu-drawer" class="fixed top-0 right-0 z-50 flex h-full w-72 flex-col bg-lime-50 translate-x-full transition-transform duration-300 md:hidden">
+    <div class="flex h-20 shrink-0 items-center justify-between px-8">
+      <img src="/privaisy.svg" alt="Privaisy" class="h-10 w-auto" />
+      <button id="menu-close" class="text-pine" aria-label="Close menu">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          <path d="M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      </button>
+    </div>
+    <nav class="flex flex-1 flex-col gap-6 overflow-y-auto px-8 pt-8">
+      <a href="#features" class="text-link text-pine no-underline transition-colors hover:text-pine/70">Features</a>
+      <a href="#pricing" class="text-link text-pine no-underline transition-colors hover:text-pine/70">Pricing</a>
+      <a href="#trust" class="text-link text-pine no-underline transition-colors hover:text-pine/70">Trust</a>
+      <a href="/blog" class="text-link text-pine no-underline transition-colors hover:text-pine/70">Blog</a>
+      <a href="#faq" class="text-link text-pine no-underline transition-colors hover:text-pine/70">FAQ</a>
+      <a href="/contact" class="text-link text-pine no-underline transition-colors hover:text-pine/70">Contact</a>
+    </nav>
+    <div class="shrink-0 px-8 pb-8 pt-4">
+      <a href="/demo" class="flex w-full items-center justify-center rounded-pill bg-lime px-6 py-4 text-link text-pine no-underline transition-colors hover:bg-lime/90">Get a Demo</a>
+    </div>
+  </div>
 </header>
+
+<script>
+  const openBtn = document.getElementById('menu-open');
+  const closeBtn = document.getElementById('menu-close');
+  const drawer = document.getElementById('menu-drawer');
+  const backdrop = document.getElementById('menu-backdrop');
+
+  function open() {
+    drawer.classList.remove('translate-x-full');
+    backdrop.classList.remove('opacity-0', 'pointer-events-none');
+    backdrop.classList.add('opacity-100', 'pointer-events-auto');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function close() {
+    drawer.classList.add('translate-x-full');
+    backdrop.classList.add('opacity-0', 'pointer-events-none');
+    backdrop.classList.remove('opacity-100', 'pointer-events-auto');
+    document.body.style.overflow = '';
+  }
+
+  openBtn.addEventListener('click', open);
+  closeBtn.addEventListener('click', close);
+  backdrop.addEventListener('click', close);
+
+  document.querySelectorAll('#menu-drawer nav a').forEach((link) => {
+    link.addEventListener('click', close);
+  });
+</script>

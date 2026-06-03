@@ -8,7 +8,7 @@ interface Props {
   description?: string;
 }
 
-const { title = 'Privaisy — Private AI for Businesses' } = Astro.props;
+const { title = 'Privaisy - Private AI for Your Business' } = Astro.props;
 const description = Astro.props.description || 'Privaisy provides managed private AI infrastructure for businesses. Keep your data secure, deploy without IT staff, and pay per organization not per seat.';
 const canonical = Astro.url.pathname;
 const site = 'https://privaisy.com';
@@ -27,7 +27,14 @@ const site = 'https://privaisy.com';
     <meta property="og:url" content={`${site}${canonical}`} />
     <meta property="og:type" content="website" />
     <meta name="twitter:card" content="summary_large_image" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff" />
+    <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#111827" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <link rel="icon" type="image/svg+xml" media="(prefers-color-scheme: light)" href="/favicon.svg" />
+    <link rel="icon" type="image/svg+xml" media="(prefers-color-scheme: dark)" href="/favicon-dark.svg" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
   </head>
   <body class="min-h-screen bg-white font-body text-pine">
     <Navigation />
